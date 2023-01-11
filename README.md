@@ -9,3 +9,6 @@ To spin it up:
 `docker-compose exec withvrf /data/node_setup.sh` will create the vrf and set the proper sysctl to make bfd work.
 
 Then enter in the peer using `docker-compose exec peer bash` and check the echo counters are 0 with `show bfd peers counters` from vtysh.
+
+Note: the same test works when using the latest frr image. To validate that, replace the images in the `docker-compose.yaml` file with
+`frrouting/frr:v8.4.1`
