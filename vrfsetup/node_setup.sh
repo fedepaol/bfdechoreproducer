@@ -10,3 +10,4 @@ ip link set dev eth1 master red
 
 # vrf default route (we set it via the table)
 ip route add default via 10.111.221.21 dev eth1 table 2
+sysctl net.ipv4.udp_l3mdev_accept=1
