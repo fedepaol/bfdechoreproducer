@@ -1,0 +1,39 @@
+---
+version: '3'
+services:
+    withvrf:
+        build:
+          context: .
+        image: frrouting/frr:v7.5.1
+        privileged: true
+        volumes:
+          - ./vrfsetup:/data
+          - ./vrfsetup/frr:/etc/frr
+        networks:
+            primary:
+                ipv4_address: 10.111.220.11
+            vrfed:
+                ipv4_address: 10.111.221.11
+
+    peer:
+        depends_on:
+            - withvrf
+        image: frrouting/frr:v7.5.1
+        privileged: true
+        volumes:
+          - ./router:/data
+          - ./peersetup/frr:/etc/frr
+        networks:
+            vrfed:
+                ipv4_address: 10.111.221.21
+networks:
+    primary:
+        driver: "bridge"
+        ipam:
+            config:
+                - subnet: 10.111.220.1/24
+    vrfed:
+        driver: "bridge"
+        ipam:
+            config:
+                - subnet: 10.111.221.1/24
