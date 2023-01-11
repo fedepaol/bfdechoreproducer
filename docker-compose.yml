@@ -2,9 +2,7 @@
 version: '3'
 services:
     withvrf:
-        build:
-          context: .
-        image: frrouting/frr:v7.5.1
+        image: quay.io/openshift/origin-metallb-frr:4.12
         privileged: true
         volumes:
           - ./vrfsetup:/data
@@ -18,7 +16,7 @@ services:
     peer:
         depends_on:
             - withvrf
-        image: frrouting/frr:v7.5.1
+        image: quay.io/openshift/origin-metallb-frr:4.12
         privileged: true
         volumes:
           - ./router:/data
